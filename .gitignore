@@ -20,3 +20,4 @@ test-tmp
 .vertx
 web/assets/scripts
 node_modules/
+test-dir/*
