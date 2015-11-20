@@ -19,6 +19,8 @@ public interface GitService {
 		return new GitServiceImpl(vertx, workDir);
 	}
 
+	public String getWorkDir();
+
 	public <T> void exec(GitCommand<T> command, Handler<AsyncResult<T>> handler);
 
 	public EventBusProgressMonitor clone(CloneCommand command, Handler<AsyncResult<Git>> handler);

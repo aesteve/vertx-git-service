@@ -67,4 +67,9 @@ public class GitServiceImpl implements GitService {
 		return monitor;
 	}
 
+	@Override
+	public String getWorkDir() {
+		return workDir.getAbsolutePath();
+	}
+
 }
