@@ -1,0 +1,27 @@
+plugins {
+	id 'java'
+	id 'eclipse'
+	id 'maven'
+}
+
+group='com.github.aesteve'
+version='0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+def VERTX_VERSION = '3.1.0'
+
+dependencies {
+	compile "io.vertx:vertx-core:${VERTX_VERSION}"
+	compile "org.eclipse.jgit:org.eclipse.jgit:4.1.1.201511131810-r"
+
+	testCompile "io.vertx:vertx-unit:${VERTX_VERSION}"
+	testCompile 'junit:junit:4.12'
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.9'
+}
