@@ -1,11 +1,5 @@
 package com.github.aesteve.vertx.git.impl;
 
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
-import io.vertx.core.Vertx;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
-
 import java.io.File;
 import java.util.Date;
 
@@ -14,10 +8,15 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.GitCommand;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.PullResult;
-import org.eclipse.jgit.api.errors.GitAPIException;
 
 import com.github.aesteve.vertx.git.GitService;
 import com.github.aesteve.vertx.git.io.EventBusProgressMonitor;
+
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
@@ -37,8 +36,8 @@ public class GitServiceImpl implements GitService {
 		vertx.executeBlocking(future -> {
 			try {
 				future.complete(command.call());
-			} catch (GitAPIException gae) {
-				future.fail(gae);
+			} catch (Exception e) {
+				future.fail(e);
 			}
 		}, handler);
 	}
