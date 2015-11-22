@@ -4,11 +4,12 @@ import static com.github.aesteve.vertx.git.io.notif.TaskEvent.begin;
 import static com.github.aesteve.vertx.git.io.notif.TaskEvent.end;
 import static com.github.aesteve.vertx.git.io.notif.TaskEvent.progress;
 import static com.github.aesteve.vertx.git.io.notif.TaskEvent.start;
+
+import org.eclipse.jgit.lib.ProgressMonitor;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.json.JsonObject;
-
-import org.eclipse.jgit.lib.ProgressMonitor;
 
 public class EventBusProgressMonitor implements ProgressMonitor {
 
@@ -26,6 +27,7 @@ public class EventBusProgressMonitor implements ProgressMonitor {
 		JsonObject message = new JsonObject();
 		DeliveryOptions options = new DeliveryOptions();
 		options.addHeader("event", start.toString());
+		message.put("event", start.toString());
 		message.put("total", totalTasks);
 		vertx.eventBus().publish(address, message, options);
 	}
@@ -35,6 +37,7 @@ public class EventBusProgressMonitor implements ProgressMonitor {
 		JsonObject message = new JsonObject();
 		DeliveryOptions options = new DeliveryOptions();
 		options.addHeader("event", begin.toString());
+		message.put("event", begin.toString());
 		message.put("title", title);
 		message.put("total", totalWork);
 		vertx.eventBus().publish(address, message, options);
@@ -45,6 +48,7 @@ public class EventBusProgressMonitor implements ProgressMonitor {
 		JsonObject message = new JsonObject();
 		DeliveryOptions options = new DeliveryOptions();
 		options.addHeader("event", progress.toString());
+		message.put("event", progress.toString());
 		message.put("completed", completed);
 		vertx.eventBus().publish(address, message, options);
 	}
@@ -54,6 +58,7 @@ public class EventBusProgressMonitor implements ProgressMonitor {
 		JsonObject message = new JsonObject();
 		DeliveryOptions options = new DeliveryOptions();
 		options.addHeader("event", end.toString());
+		message.put("event", end.toString());
 		vertx.eventBus().publish(address, message, options);
 	}
 
