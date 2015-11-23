@@ -1,7 +1,14 @@
 package com.github.aesteve.vertx.git.impl;
 
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
+
 import java.io.File;
 import java.util.Date;
+import java.util.Objects;
 
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
@@ -11,12 +18,6 @@ import org.eclipse.jgit.api.PullResult;
 
 import com.github.aesteve.vertx.git.GitService;
 import com.github.aesteve.vertx.git.io.EventBusProgressMonitor;
-
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
-import io.vertx.core.Vertx;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 
 public class GitServiceImpl implements GitService {
 
@@ -43,10 +44,11 @@ public class GitServiceImpl implements GitService {
 	}
 
 	@Override
-	public EventBusProgressMonitor clone(CloneCommand command, Handler<AsyncResult<Git>> handler) {
+	public EventBusProgressMonitor clone(String relPath, CloneCommand command, Handler<AsyncResult<Git>> handler) {
+		Objects.requireNonNull(relPath);
 		String address = "git.command.clone." + new Date().getTime();
 		EventBusProgressMonitor monitor = new EventBusProgressMonitor(vertx, address);
-		command.setDirectory(workDir);
+		command.setDirectory(new File(workDir.getAbsolutePath() + "/" + relPath));
 		command.setProgressMonitor(monitor);
 		exec(command, res -> {
 			if (res.result() != null) {

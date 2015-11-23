@@ -19,7 +19,7 @@ public class PullSpec extends GitServiceTestBase {
 		Async async = context.async();
 		CloneCommand cloneCommand = Git.cloneRepository();
 		cloneCommand.setURI(PROJUICE_URL);
-		gitService.clone(cloneCommand, cloneRes -> {
+		gitService.clone("nubes", cloneCommand, cloneRes -> {
 			Git git = cloneRes.result();
 			PullCommand pull = git.pull();
 			EventBusProgressMonitor monitor = gitService.pull(pull, res -> {

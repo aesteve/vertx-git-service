@@ -23,7 +23,7 @@ public interface GitService {
 
 	public <T> void exec(GitCommand<T> command, Handler<AsyncResult<T>> handler);
 
-	public EventBusProgressMonitor clone(CloneCommand command, Handler<AsyncResult<Git>> handler);
+	public EventBusProgressMonitor clone(String relPath, CloneCommand command, Handler<AsyncResult<Git>> handler);
 
 	public EventBusProgressMonitor pull(PullCommand pull, Handler<AsyncResult<PullResult>> handler);
 }

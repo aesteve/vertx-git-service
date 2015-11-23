@@ -17,7 +17,7 @@ public class CloneSpec extends GitServiceTestBase {
 		Async async = context.async();
 		CloneCommand cloneCommand = Git.cloneRepository();
 		cloneCommand.setURI(NUBES_URL);
-		EventBusProgressMonitor monitor = gitService.clone(cloneCommand, res -> {
+		EventBusProgressMonitor monitor = gitService.clone("nubes", cloneCommand, res -> {
 			if (res.failed()) {
 				res.cause().printStackTrace();
 			}
