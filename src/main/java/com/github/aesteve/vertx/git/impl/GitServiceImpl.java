@@ -8,13 +8,16 @@ import io.vertx.core.logging.LoggerFactory;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.GitCommand;
+import org.eclipse.jgit.api.ListBranchCommand;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.PullResult;
+import org.eclipse.jgit.lib.Ref;
 
 import com.github.aesteve.vertx.git.GitService;
 import com.github.aesteve.vertx.git.io.EventBusProgressMonitor;
@@ -71,6 +74,12 @@ public class GitServiceImpl implements GitService {
 	@Override
 	public String getWorkDir() {
 		return workDir.getAbsolutePath();
+	}
+
+	@Override
+	public void listAllBranches(ListBranchCommand command, Handler<AsyncResult<List<Ref>>> handler) {
+		command.setListMode(ListBranchCommand.ListMode.ALL);
+		exec(command, handler);
 	}
 
 }
