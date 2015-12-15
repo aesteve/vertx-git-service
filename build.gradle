@@ -12,13 +12,11 @@ repositories {
 	mavenLocal()
 }
 
-def VERTX_VERSION = '3.1.0'
-
 dependencies {
-	compile "io.vertx:vertx-core:${VERTX_VERSION}"
+	compile "io.vertx:vertx-core:${vertxVersion}"
 	compile "org.eclipse.jgit:org.eclipse.jgit:4.1.1.201511131810-r"
 
-	testCompile "io.vertx:vertx-unit:${VERTX_VERSION}"
+	testCompile "io.vertx:vertx-unit:${vertxVersion}"
 	testCompile 'junit:junit:4.12'
 }
 
